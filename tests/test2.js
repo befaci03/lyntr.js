@@ -1,4 +1,4 @@
-const { SendMessage, findMessages } = require('./dist/index.js');
+const { SendMessage, findMessages } = require('../dist/index.js');
 
 async function processNewMessages(token, searchTerm) {
   let previousMessageIds = [];
