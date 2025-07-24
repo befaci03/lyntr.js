@@ -16,7 +16,7 @@ class Client(token: string) {
     this.config = { "User-Agent": `LyntrJS-bot ${version}`, Endpoint: "https://lyntr.jnnj.xyz/api/" }
   }
 
-  public async SendMessage({ token, message, id }: { token: string; message: string; id: string }) {
+  public async SendMessage({ message, id }: { message: string; id: string }) {
     try {
       const response = await axios.post(this.config.Endpoint + 'comment', {
         id,
@@ -26,7 +26,7 @@ class Client(token: string) {
           'Accept': '*/*',
           'Accept-Language': 'en-US,en;q=0.7',
           'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary75Bv3AOwNH7vJFNe',
-          'Cookie': `${token}`,
+          'Cookie': `${this.token}`,
           'Origin': 'https://lyntr.jnnj.xyz',
           'Referer': `https://lyntr.jnnj.xyz/?id=${id}`,
           'User-Agent': this.config["User-Agent"]
@@ -38,14 +38,14 @@ class Client(token: string) {
     }
   }
   
-  private async findMessages(token: string, searchTerm: string): Promise<string[]> {
+  private async findMessages(searchTerm: string): Promise<string[]> {
     try {
       const response = await axios.get(this.config.Endpoint + 'feed', {
         params: { type: 'New' },
         headers: {
           accept: '*/*',
           'accept-language': 'en-US,en;q=0.7',
-          cookie: `${token}`,
+          cookie: `${this.token}`,
           priority: 'u=1, i',
           referer: 'https://lyntr.jnnj.xyz/',
           '^sec-ch-ua': '^\^Not'
